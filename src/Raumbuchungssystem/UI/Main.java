@@ -1,4 +1,4 @@
-package UI;
+package Raumbuchungssystem.UI;
 
 public class Main {
 
