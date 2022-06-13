@@ -6,21 +6,24 @@ public class Data_Room {
     public Room[] Room;
 
     public Room[] getRooms(){
-        return ;
+        return null;
     }
     public Room[] getRoomsAvailable(){
-        return ;
+        return null;
     }
-    public Room[] getRoomsWithAtleastXSeats(int seats){
-        return ;
+
+    /*public Room[] getRoomsWithAtleastXSeats(int seats){
+        return null;
     }
+
     public Room[] getRoomsWithEquipment(String equipment){
-        return ;
+        return null;
     }
+
     public boolean createRoom(int seats,String equipment){
-        return ;
+        return false;
     }
     public boolean bookRoom(Room reservedRoom){
-        return ;
-    }
+        return false;
+    } */
 }
