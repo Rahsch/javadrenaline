@@ -53,8 +53,8 @@ public class Data_Room {
     public void bookRoom(String bezeichnung)
     {
         for (ArrayList obj : listRoom) {
-            ArrayList<Room> tAv = obj;
-            for (Room job : tAv) {
+            ArrayList<Room> tBR = obj;
+            for (Room job : tBR) {
                 if (job.getName().equals(bezeichnung) && job.getAvailable() == true)
                 {
                     job.setAvailable(false);
@@ -68,8 +68,8 @@ public class Data_Room {
     public void cancelRoom(String bezeichnung)
     {
         for (ArrayList obj : listRoom) {
-            ArrayList<Room> tAv = obj;
-            for (Room job : tAv) {
+            ArrayList<Room> tCR = obj;
+            for (Room job : tCR) {
                 if (job.getName().equals(bezeichnung) && job.getAvailable() == true)
                 {
                     job.setAvailable(true);
