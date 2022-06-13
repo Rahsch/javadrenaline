@@ -4,6 +4,7 @@ public class Room implements IRoom{
 
     public int seats;
     public String name;
+    public boolean available = true;
 
     public Room(String name,int seats)
     {
@@ -22,11 +23,29 @@ public class Room implements IRoom{
         this.name = a;
     }
 
+    public String getName()
+    {
+        return this.name;
+    }
 
     public void setAnz(int b)
     {
         this.seats = b;
     }
 
+    public int setAnz()
+    {
+        return this.seats;
+    }
+
+    public void setAvailable(boolean a)
+    {
+        this.available = a;
+    }
+
+    public boolean getAvailable()
+    {
+        return available;
+    }
 
 }
