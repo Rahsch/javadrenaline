@@ -2,6 +2,10 @@ package Raumbuchungssystem.Logik;
 
 public class Room implements IRoom{
 
+    /*
+    Raum hat nur einen Namen und eine Anzahl an Sitzplätzen
+    Verfügbarkeit aktuell nur Raum Objekt zugeordnet kann sich später noch ändern
+     */
     public int seats;
     public String name;
     public boolean available = true;

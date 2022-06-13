@@ -4,8 +4,13 @@ import Raumbuchungssystem.Logik.Room;
 import java.util.*;
 
 public class Data_Room {
+    //Liste zum speichern und abrufen der Räume
     List<ArrayList<Room>> listRoom = new ArrayList<>();
 
+    /*
+    Konstruktor fügt beim erstellen des Data_Room Objekts Daten hinzu
+    Konstruktor könnte später diese aus einem Dokument laden und hinzufügen z.B.
+     */
     public Data_Room() {
         ArrayList<Room> etage1 = new ArrayList<>();
         ArrayList<Room> etage2 = new ArrayList<>();
@@ -20,6 +25,7 @@ public class Data_Room {
         listRoom.add(etage2);
     }
 
+    //Gibt einfach alle Räume aus
     public void getRooms() {
         for (ArrayList obj : listRoom) {
             ArrayList<Room> temp = obj;
@@ -30,7 +36,7 @@ public class Data_Room {
         }
     }
 
-
+    //Prüft ob Räume verfügbar sind und gibt diese dann aus
     public void getRoomsAvailable() {
         for (ArrayList obj : listRoom) {
             ArrayList<Room> temp = obj;

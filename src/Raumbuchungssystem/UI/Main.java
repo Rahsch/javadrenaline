@@ -6,9 +6,10 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+        //Lädt die Liste und fügt Ihnen Räume hinzu
         Data_Room data = new Data_Room();
-        data.getRooms();
 
+        data.getRooms();
         data.getRoomsAvailable();
 
     }
