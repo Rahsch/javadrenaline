@@ -12,5 +12,11 @@ public class Main {
         data.getRooms();
         data.getRoomsAvailable();
 
+        //Raum buchen + Ausgabe wo H107 verschwinden müsste
+        data.bookRoom("H107");
+        data.getRoomsAvailable();
+
+        //Raum stornieren
+        data.cancelRoom("H107");
     }
 }

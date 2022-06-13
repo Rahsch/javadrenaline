@@ -39,14 +39,46 @@ public class Data_Room {
     //Prüft ob Räume verfügbar sind und gibt diese dann aus
     public void getRoomsAvailable() {
         for (ArrayList obj : listRoom) {
-            ArrayList<Room> temp = obj;
-            for (Room job : temp) {
+            ArrayList<Room> tAv = obj;
+            for (Room job : tAv) {
                 if (job.getAvailable() == true) {
                     job.getRoom();
                 }
                 System.out.println();
             }
         }
+    }
+
+    //Sucht die Liste nach einem gewählten Raum aus und "bucht" ihn
+    public void bookRoom(String bezeichnung)
+    {
+        for (ArrayList obj : listRoom) {
+            ArrayList<Room> tAv = obj;
+            for (Room job : tAv) {
+                if (job.getName().equals(bezeichnung) && job.getAvailable() == true)
+                {
+                    job.setAvailable(false);
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    //Sucht die Liste nach einem gewählten Raum aus und "storniert" ihn
+    public void cancelRoom(String bezeichnung)
+    {
+        for (ArrayList obj : listRoom) {
+            ArrayList<Room> tAv = obj;
+            for (Room job : tAv) {
+                if (job.getName().equals(bezeichnung) && job.getAvailable() == true)
+                {
+                    job.setAvailable(true);
+                }
+                System.out.println();
+            }
+        }
+    }
+
     /*
     public Room[] getRoomsWithAtleastXSeats(int seats){
         return null;
@@ -59,8 +91,5 @@ public class Data_Room {
     public boolean createRoom(int seats,String equipment){
         return false;
     }
-    public boolean bookRoom(Room reservedRoom){
-        return false;
-    } */
-    }
+    */
 }
