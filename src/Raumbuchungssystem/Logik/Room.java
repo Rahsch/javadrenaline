@@ -1,14 +1,12 @@
 package Raumbuchungssystem.Logik;
 
-public class Room implements IRoom{
+import java.io.Serializable;
 
-    /*
-    Raum hat nur einen Namen und eine Anzahl an Sitzplätzen
-    Verfügbarkeit aktuell nur Raum Objekt zugeordnet kann sich später noch ändern
-     */
-    public int seats;
-    public String name;
-    public boolean available = true;
+public class Room implements IRoom, Serializable {
+
+    private int seats;
+    private String name;
+    private boolean available = true;
 
     public Room(String name,int seats)
     {
@@ -22,31 +20,43 @@ public class Room implements IRoom{
         System.out.println("Raum:"+name+" Sitzplaetze:"+seats);
     }
 
-    public void setName(String a)
+    @Override
+    public String toString()
     {
-        this.name = a;
+        return "Name:" +this.name+ " Seats:"+this.seats+ " Available:" +this.available;
     }
 
+    @Override
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    @Override
     public String getName()
     {
         return this.name;
     }
 
-    public void setAnz(int b)
+    @Override
+    public void setAnz(int zahl)
     {
-        this.seats = b;
+        this.seats = zahl;
     }
 
-    public int setAnz()
+    @Override
+    public int getAnz()
     {
         return this.seats;
     }
 
-    public void setAvailable(boolean a)
+    @Override
+    public void setAvailable(boolean available)
     {
-        this.available = a;
+        this.available = available;
     }
 
+    @Override
     public boolean getAvailable()
     {
         return available;

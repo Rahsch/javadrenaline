@@ -1,95 +1,146 @@
 package Raumbuchungssystem.Datenbanken;
 
 import Raumbuchungssystem.Logik.Room;
+
+import java.io.*;
 import java.util.*;
 
+
 public class Data_Room {
-    //Liste zum speichern und abrufen der Räume
-    List<ArrayList<Room>> listRoom = new ArrayList<>();
+    private static final String pfad = "C:\\Users\\bueny\\IdeaProjects\\javadrenaline\\Data\\Rooms";
 
-    /*
-    Konstruktor fügt beim erstellen des Data_Room Objekts Daten hinzu
-    Konstruktor könnte später diese aus einem Dokument laden und hinzufügen z.B.
-     */
-    public Data_Room() {
-        ArrayList<Room> etage1 = new ArrayList<>();
-        ArrayList<Room> etage2 = new ArrayList<>();
+    public static void write(Room room)
+    {
+        try {
+            FileOutputStream f = new FileOutputStream(new File(pfad+"\\"+room.getName()+".txt"));
+            ObjectOutputStream o = new ObjectOutputStream(f);
 
-        etage1.add(new Room("H107", 15));
-        etage1.add(new Room("H108", 10));
+            //Write objects to file
+            o.writeObject(room);
 
-        etage2.add(new Room("H207", 20));
-        etage2.add(new Room("H208", 30));
+            o.close();
+            f.close();
 
-        listRoom.add(etage1);
-        listRoom.add(etage2);
-    }
-
-    //Gibt einfach alle Räume aus
-    public void getRooms() {
-        for (ArrayList obj : listRoom) {
-            ArrayList<Room> temp = obj;
-            for (Room job : temp) {
-                job.getRoom();
-            }
-            System.out.println();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
         }
     }
 
+    public static Room read(String roomName)
+    {
+        try {
+            FileInputStream fi = new FileInputStream(new File(pfad+"\\"+roomName+".txt"));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+            // Read objects
+            Room room = (Room) oi.readObject();
+            oi.close();
+            fi.close();
+
+            return room;
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     //Prüft ob Räume verfügbar sind und gibt diese dann aus
-    public void getRoomsAvailable() {
-        for (ArrayList obj : listRoom) {
-            ArrayList<Room> tAv = obj;
-            for (Room job : tAv) {
-                if (job.getAvailable() == true) {
-                    job.getRoom();
-                }
-                System.out.println();
+    public static void getRoomsAvailable()
+    {
+        //Zählt alle Objekte in der Liste
+        File dir = new File(pfad);
+        File[] arr = dir.listFiles(new FilenameFilter(){
+            public boolean accept(File dir, String name) {
+                if(name.toLowerCase().endsWith(".txt")) return true;
+                return false;
             }
+        });
+        //System.out.println("Anzahl *.txt Dateien: "+arr.length);
+
+        //Geht alle Objekte aus die angelegt sind
+        for(int i=0; i<arr.length;i++)
+        try {
+            FileInputStream fi = new FileInputStream(new File(pfad+"\\h"+i+".txt"));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+            // Read objects
+            Room room = (Room) oi.readObject();
+            oi.close();
+            fi.close();
+
+            if(room.getAvailable() == true){
+                System.out.println(room.getName());
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
     //Sucht die Liste nach einem gewählten Raum aus und "bucht" ihn
-    public void bookRoom(String bezeichnung)
+    public static void bookRoom(String bezeichnung)
     {
-        for (ArrayList obj : listRoom) {
-            ArrayList<Room> tBR = obj;
-            for (Room job : tBR) {
-                if (job.getName().equals(bezeichnung) && job.getAvailable() == true)
-                {
-                    job.setAvailable(false);
-                }
-                System.out.println();
+        try {
+            FileInputStream fi = new FileInputStream(new File(pfad+"\\"+bezeichnung+".txt"));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+            // Read objects
+            Room room = (Room) oi.readObject();
+            oi.close();
+            fi.close();
+            if(room.getAvailable() == true)
+            {
+                room.setAvailable(false);
             }
+            else
+            {
+                System.out.println("Der Raum ist bereits gebucht");
+            }
+
+            write(room);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
     //Sucht die Liste nach einem gewählten Raum aus und "storniert" ihn
-    public void cancelRoom(String bezeichnung)
+    public static void cancelRoom(String bezeichnung)
     {
-        for (ArrayList obj : listRoom) {
-            ArrayList<Room> tCR = obj;
-            for (Room job : tCR) {
-                if (job.getName().equals(bezeichnung) && job.getAvailable() == true)
-                {
-                    job.setAvailable(true);
-                }
-                System.out.println();
-            }
+        try {
+            FileInputStream fi = new FileInputStream(new File(pfad+"\\"+bezeichnung+".txt"));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+            // Read objects
+            Room room = (Room) oi.readObject();
+            oi.close();
+            fi.close();
+            room.setAvailable(true);
+            write(room);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
-    /*
-    public Room[] getRoomsWithAtleastXSeats(int seats){
-        return null;
-    }
-
-    public Room[] getRoomsWithEquipment(String equipment){
-        return null;
-    }
-
-    public boolean createRoom(int seats,String equipment){
-        return false;
-    }
-    */
 }

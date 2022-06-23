@@ -1,22 +1,29 @@
 package Raumbuchungssystem.UI;
+
 import Raumbuchungssystem.Logik.Room;
 import Raumbuchungssystem.Datenbanken.Data_Room;
 import java.util.*;
 
+
 public class Main {
 
     public static void main(String[] args) {
-        //Lädt die Liste und fügt Ihnen Räume hinzu
-        Data_Room data = new Data_Room();
+       /* for(int i = 0; i<5;i++)
+        {
+            Room room = new Room("h"+i,i);
+            Data_Room.write(room);
+            System.out.println(Data_Room.read(room.getName()));
+        }*/
 
-        data.getRooms();
-        data.getRoomsAvailable();
-
-        //Raum buchen + Ausgabe wo H107 verschwinden müsste
-        data.bookRoom("H107");
-        data.getRoomsAvailable();
-
-        //Raum stornieren
-        data.cancelRoom("H107");
+        //System.out.println(Data_Room.read("h4"));
+        Data_Room.getRoomsAvailable();
+        System.out.println("\n");
+        Data_Room.bookRoom("h3");
+        Data_Room.getRoomsAvailable();
+        Data_Room.bookRoom("h3");
+        System.out.println("\n");
+        Data_Room.cancelRoom("h3");
+        Data_Room.getRoomsAvailable();
     }
+
 }
