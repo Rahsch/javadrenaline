@@ -26,6 +26,16 @@ import static Raumbuchungssystem.Datenbanken.Data_Room.*;
 public class Main {
 
     public static void main(String[] args) {
+
+    /* This place is reserved for the User Registration UI and the User data input
+    *  it is connected to the (DatenBanken.Data_User_Input) class
+    *  the command will create a UI Registration Interface and collects the data from user
+    *  Temporary code for calling the UI:
+    *
+    *  Data_User_Input uInput = new Data_User_Input();
+    *
+    * */
+
        for(int i = 0; i<5;i++)
         {
             Room room = new Room("h"+i,i);
