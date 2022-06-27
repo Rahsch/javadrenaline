@@ -1,7 +1,11 @@
-package Raumbuchungssystem.Datenbanken;
+package Raumbuchungssystem.Panels;
+
+import Raumbuchungssystem.Datenbanken.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Data_User_Input extends JFrame implements ActionListener {
 
@@ -20,18 +24,22 @@ public class Data_User_Input extends JFrame implements ActionListener {
     private ButtonGroup typeGroup;
     private JLabel email;
     private JTextField uEmail;
+    private JLabel pass;
+    private JTextField uPass;
     private JCheckBox checkInfo;
-    private JButton submit;
+    private JButton signUp;
     private JButton reset;
     private JTextArea info;
     private JLabel res;
     private JTextArea resadd;
+    private JButton loginPage;
+    private JButton exitButton;
 
     // the constructor creates each elements of the User Registration UI
-    public Data_User_Input( )  {
+    public Data_User_Input() {
         setTitle("Registration");
         setBounds(300, 90, 900, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
         c = getContentPane();
@@ -73,7 +81,7 @@ public class Data_User_Input extends JFrame implements ActionListener {
         c.add(uLastName);
 
         // creates a label for the user ID input box
-        id = new JLabel("ID/Matr.");
+        id = new JLabel("ID/Matr");
         id.setFont(new Font("Arial", Font.PLAIN, 20));
         id.setSize(100, 20);
         id.setLocation(100, 200);
@@ -121,41 +129,78 @@ public class Data_User_Input extends JFrame implements ActionListener {
         email.setLocation(100, 300);
         c.add(email);
 
+        // creates a field for the user to enter Email Address
         uEmail = new JTextField();
         uEmail.setFont(new Font("Arial", Font.PLAIN, 15));
         uEmail.setSize(250, 20);
         uEmail.setLocation(200, 300);
-        //uEmail.setLineWrap(true);
         c.add(uEmail);
 
+        // creates a label for the user Password input box
+        pass = new JLabel("Password");
+        pass.setFont(new Font("Arial", Font.PLAIN, 20));
+        pass.setSize(100, 20);
+        pass.setLocation(100, 350);
+        c.add(pass);
+
+        // creates a field for the user to enter Password
+        uPass = new JTextField();
+        uPass.setFont(new Font("Arial", Font.PLAIN, 15));
+        uPass.setSize(250, 20);
+        uPass.setLocation(200, 350);
+        c.add(uPass);
+
+        // reminds the user to recheck the given data
         checkInfo = new JCheckBox("All information is correct.");
         checkInfo.setFont(new Font("Arial", Font.PLAIN, 15));
         checkInfo.setSize(250, 20);
         checkInfo.setLocation(150, 400);
         c.add(checkInfo);
 
-        submit = new JButton("Submit");
-        submit.setFont(new Font("Arial", Font.PLAIN, 15));
-        submit.setSize(100, 20);
-        submit.setLocation(150, 450);
-        submit.addActionListener(this);
-        c.add(submit);
+        // sign up the user: the user data gets stored in a (.txt) file as binary data
+        signUp = new JButton("Sign up");
+        signUp.setFont(new Font("Arial", Font.PLAIN, 15));
+        signUp.setSize(90, 20);
+        signUp.setLocation(100, 450);
+        signUp.setFocusable(false);
+        signUp.addActionListener(this);
+        c.add(signUp);
 
+        // resets or clears all the boxes for user to put new data
         reset = new JButton("Reset");
         reset.setFont(new Font("Arial", Font.PLAIN, 15));
-        reset.setSize(100, 20);
-        reset.setLocation(270, 450);
+        reset.setSize(90, 20);
+        reset.setLocation(200, 450);
         reset.addActionListener(this);
         c.add(reset);
 
+        // closes this specific input panel for user
+        exitButton = new JButton("Exit");
+        exitButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        exitButton.setSize(90, 20);
+        exitButton.setLocation(300, 450);
+        exitButton.setFocusable(false);
+        exitButton.addActionListener(this);
+        c.add(exitButton);
+
+        loginPage = new JButton("To Login");
+        loginPage.setFont(new Font("Arial", Font.PLAIN, 15));
+        loginPage.setSize(300, 20);
+        loginPage.setLocation(500, 450);
+        loginPage.setFocusable(false);
+        loginPage.addActionListener(this);
+        c.add(loginPage);
+
+        // the area where user sees what data is stored
         info = new JTextArea();
         info.setFont(new Font("Arial", Font.PLAIN, 15));
-        info.setSize(300, 400);
+        info.setSize(300, 300);
         info.setLocation(500, 100);
         info.setLineWrap(true);
         info.setEditable(false);
         c.add(info);
 
+        // warns if the check box in not checked
         res = new JLabel("");
         res.setFont(new Font("Arial", Font.PLAIN, 20));
         res.setSize(500, 25);
@@ -172,9 +217,8 @@ public class Data_User_Input extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
-        if (e.getSource() == submit) {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == signUp) {
 
             // the terms should be first accepted by the user
             if (checkInfo.isSelected()) {
@@ -184,22 +228,28 @@ public class Data_User_Input extends JFrame implements ActionListener {
                 if (teacher.isSelected())
                     str1 = "User Type : Teacher " + "\n";
                 else
-                    str1 = "User Type : Student "+ "\n";
+                    str1 = "User Type : Student " + "\n";
 
                 // gets the user data (Full name and ID/Matriculation No.)
-                String str2
-                        = "First Name : " + uFirstName.getText() + "\n"
+                String str2 = "First Name : " + uFirstName.getText() + "\n"
                         + "Last Name :  " + uLastName.getText() + "\n"
                         + "ID No.  : " + uID.getText() + "\n";
 
                 // gets the Email Address of the user
-                String str3
-                        = "Email : " + uEmail.getText();
+                String str3 = "Email : " + uEmail.getText();
                 info.setText(str1 + str2 + str3);
                 info.setEditable(false);
                 res.setText("Registred Successfully!");
-            }
-            else {
+
+                UserData newUser = new UserData(
+                        uID.getText(), uFirstName.getText(), uLastName.getText(), uEmail.getText(), uPass.getText());
+                try {
+                    newUser.toPutDataIn(newUser);
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            } else {
                 info.setText("");
                 resadd.setText("");
                 res.setText("Please check the box (All information is correct).");
@@ -217,6 +267,10 @@ public class Data_User_Input extends JFrame implements ActionListener {
             info.setText(def);
             checkInfo.setSelected(false);
             resadd.setText(def);
+        }
+
+        else if(e.getSource() == exitButton){
+            dispose();
         }
     }
 }
