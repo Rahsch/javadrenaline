@@ -43,15 +43,56 @@ public class Main {
 
         }
 
+       //Datum zum erstellen der Buchung
         Datum start = new Datum(26,6,2022);
-        Datum ende = new Datum(26,6,2022);
+        Datum ende = new Datum(30,6,2022);
+        //Erstmalige Buchung
+        bookRoom("Guengoer",start,ende,"h1");
 
-        //Raum buchen
+        //Datum Fehlertest 1
+        Datum startFt1 = new Datum(26,6,2022);
+        Datum endeFt1 = new Datum(29,6,2022);
+        //Buchung Fehlertest 1
+        bookRoom("Guengoer",start,ende,"h1");
+
+        //Datum Fehlertest 2
+        Datum startFt2 = new Datum(27,6,2022);
+        Datum endeFt2 = new Datum(30,6,2022);
+        //Buchung Fehlertest 2
+        bookRoom("Guengoer",start,ende,"h1");
+
+        //Datum Fehlertest 3
+        Datum startFt3 = new Datum(27,6,2022);
+        Datum endeFt3 = new Datum(29,6,2022);
+        //Buchung Fehlertest 3
+        bookRoom("Guengoer",start,ende,"h1");
+
+        //Datum Fehlertest 4
+        Datum startFt4 = new Datum(26,6,2022);
+        Datum endeFt4 = new Datum(30,6,2022);
+        //Buchung Fehlertest 4
+        bookRoom("Guengoer",start,ende,"h1");
+
+        //Datum Fehlertest 5
+        Datum startFt5 = new Datum(25,6,2022);
+        Datum endeFt5 = new Datum(30,6,2022);
+        //Buchung Fehlertest 5
+        bookRoom("Guengoer",start,ende,"h1");
+
+        //Datum Fehlertest 6
+        Datum startFt6 = new Datum(25,6,2022);
+        Datum endeFt6 = new Datum(29,6,2022);
+        //Buchung Fehlertest 6
+        bookRoom("Guengoer",start,ende,"h1");
+
+        //Datum Fehlertest 7
+        Datum startFt7 = new Datum(25,6,2022);
+        Datum endeFt7 = new Datum(1,7,2022);
+        //Buchung Fehlertest 7
         bookRoom("Guengoer",start,ende,"h1");
 
         //Data_Room.getRooms();
         Data_Room.getReservation("h1", start, ende);
-
         //Data_Room.cancelRoom("h1",start,ende);
 
     }

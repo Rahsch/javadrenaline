@@ -136,7 +136,12 @@ public class Data_Room {
 
                  for (int i = 0; i < roomlist.size(); i++) {
                     if(roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() == start.getDateComp() && roomlist.get(i).endCompare() == ende.getDateComp()
-                            || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() < start.getDateComp() && roomlist.get(i).endCompare() > ende.getDateComp())
+                            || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() < start.getDateComp() && roomlist.get(i).endCompare() > ende.getDateComp()
+                             || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() == start.getDateComp() && roomlist.get(i).endCompare() > ende.getDateComp()
+                              || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() < start.getDateComp() && roomlist.get(i).endCompare() == ende.getDateComp()
+                               || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() > start.getDateComp() && roomlist.get(i).endCompare() == ende.getDateComp()
+                                || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() > start.getDateComp() && roomlist.get(i).endCompare() > ende.getDateComp()
+                                 || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() > start.getDateComp() && roomlist.get(i).endCompare() < ende.getDateComp())
                     {
                         check = false;
                     }
@@ -144,11 +149,11 @@ public class Data_Room {
 
                 if(check == false)
                  {
-                    System.out.println("Geht nicht");
+                    System.out.println("Raum nicht buchbar");
                  }
                  else if(check == true)
                  {
-                    System.out.println("Funktioniert");
+                    System.out.println("Raum wurde gebucht");
                     FileOutputStream f = new FileOutputStream(new File(pfadB+"\\"+arr.length+".txt"));
                     ObjectOutputStream o = new ObjectOutputStream(f);
 
