@@ -101,6 +101,7 @@ public class Data_Room {
             FileInputStream fi = new FileInputStream(new File(pfad+"\\"+raumname+".txt"));
             ObjectInputStream oi = new ObjectInputStream(fi);
 
+
             // Read objects
             Room room = (Room) oi.readObject();
             oi.close();
@@ -121,25 +122,27 @@ public class Data_Room {
             try {
                  boolean check = true;
                  File folder = new File(pfadB);
-                 ArrayList<Room> roomlist = new ArrayList<Room>();
+                 ArrayList<Room> roomlist = new ArrayList<>();
                  for (File file : folder.listFiles()) {
-                    FileInputStream fiRes = new FileInputStream(new File(pfadB + "\\" + file.getName()));
+                    FileInputStream fiRes = new FileInputStream(new File(pfadB+"\\"+file.getName()));
                     ObjectInputStream oiRes = new ObjectInputStream(fiRes);
 
                     //Search the User
-                    roomlist.add((Room) oiRes.readObject());
+                    roomlist.add((Room)oiRes.readObject());
                     oiRes.close();
                     fiRes.close();
                  }
 
+
                  for (int i = 0; i < roomlist.size(); i++) {
-                    if(roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() == start.getDateComp() && roomlist.get(i).endCompare() == ende.getDateComp() || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() < start.getDateComp() && roomlist.get(i).endCompare() > ende.getDateComp())
+                    if(roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() == start.getDateComp() && roomlist.get(i).endCompare() == ende.getDateComp()
+                            || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() < start.getDateComp() && roomlist.get(i).endCompare() > ende.getDateComp())
                     {
                         check = false;
                     }
                  }
 
-                 if(check == false)
+                if(check == false)
                  {
                     System.out.println("Geht nicht");
                  }
@@ -174,6 +177,43 @@ public class Data_Room {
         }
 
     }
+
+    /**
+     * Ausgabe Reservierung
+     */
+    public static void getReservation(String raumname, Datum start, Datum ende)
+    {
+        try {
+            boolean check = true;
+            File folder = new File(pfadB);
+            ArrayList<Room> roomlist = new ArrayList<Room>();
+            for (File file : folder.listFiles()) {
+                FileInputStream fiRes = new FileInputStream(new File(pfadB + "\\" + file.getName()));
+                ObjectInputStream oiRes = new ObjectInputStream(fiRes);
+
+                //Search the User
+                roomlist.add((Room) oiRes.readObject());
+                oiRes.close();
+                fiRes.close();
+            }
+
+            for (int i = 0; i < roomlist.size(); i++) {
+                if(roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() == start.getDateComp() && roomlist.get(i).endCompare() == ende.getDateComp() )
+                {
+                    roomlist.get(i).getReservation();
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Raum löschen aus Reservierung funktioniert
@@ -289,4 +329,5 @@ public class Data_Room {
                 e.printStackTrace();
             }
     }
+
 }

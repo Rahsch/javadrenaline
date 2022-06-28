@@ -63,6 +63,11 @@ public class Room implements IRoom, Serializable {
         return buchen.endComp();
     }
 
+    public void getReservation()
+    {
+        System.out.println("Reservierung\nName:"+benutzer.getName()+"\nNachname:"+benutzer.getNachname()+"\nRaum:"+this.getName()+"\nVon:"+buchen.getStartDate()+"\nBis:"+buchen.getEndDate());
+    }
+
     @Override
     public void getRoom()
     {

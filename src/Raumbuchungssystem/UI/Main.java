@@ -32,33 +32,17 @@ public class Main {
             Data_Room.write(room);
 
         }
-        /*
-        Data_Room.getRoomsAvailable();
-        System.out.println("\n");
-        Data_Room.bookRoom("h3");
-        Data_Room.getRoomsAvailable();
-        Data_Room.bookRoom("h3");
-        System.out.println("\n");
-        Data_Room.cancelRoom("h3");
-        Data_Room.getRoomsAvailable();
-        */
-
-        //Datum test = new Datum (29,2,2001);
-
-        /*
-        User user1 = new User("Benni","Guengoer");
-        Data_User.write(user1);
-        System.out.println(Data_User.read("Guengoer").getNachname());
-         */
 
         Datum start = new Datum(26,6,2022);
         Datum ende = new Datum(26,6,2022);
 
-       bookRoom("Guengoer",start,ende,"h1");
+        //Raum buchen
+        bookRoom("Guengoer",start,ende,"h1");
 
-        Data_Room.getRooms();
+        //Data_Room.getRooms();
+        Data_Room.getReservation("h1", start, ende);
 
-        Data_Room.cancelRoom("h1",start,ende);
+        //Data_Room.cancelRoom("h1",start,ende);
 
     }
 
