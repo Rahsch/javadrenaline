@@ -141,7 +141,8 @@ public class Data_Room {
                               || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() < start.getDateComp() && roomlist.get(i).endCompare() == ende.getDateComp()
                                || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() > start.getDateComp() && roomlist.get(i).endCompare() == ende.getDateComp()
                                 || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() > start.getDateComp() && roomlist.get(i).endCompare() > ende.getDateComp()
-                                 || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() > start.getDateComp() && roomlist.get(i).endCompare() < ende.getDateComp())
+                                 || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() > start.getDateComp() && roomlist.get(i).endCompare() < ende.getDateComp()
+                                  || roomlist.get(i).getName().equals(raumname) && roomlist.get(i).startCompare() < start.getDateComp() && roomlist.get(i).endCompare() < ende.getDateComp() && start.getDateComp() < roomlist.get(i).endCompare())
                     {
                         check = false;
                     }
