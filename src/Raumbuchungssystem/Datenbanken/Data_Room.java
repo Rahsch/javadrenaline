@@ -1,9 +1,6 @@
 package Raumbuchungssystem.Datenbanken;
 
-import Raumbuchungssystem.Logik.Buchung;
-import Raumbuchungssystem.Logik.Datum;
-import Raumbuchungssystem.Logik.Room;
-import Raumbuchungssystem.Logik.User;
+import Raumbuchungssystem.Logik.*;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 
-public class Data_Room {
+public class Data_Room{
     /**
      * Pfade zu den Verzeichnissen
      * Methode bookRoom nutzt alle 3
