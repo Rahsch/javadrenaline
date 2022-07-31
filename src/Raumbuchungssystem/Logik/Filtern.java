@@ -52,17 +52,18 @@ public class Filtern implements Serializable {
     public static ArrayList<Datum> alleZeitpunkte (Datum start, Datum ende) {
         ArrayList<Datum> alleZeitpunkte = new ArrayList<>();
         alleZeitpunkte.add(start);
-        do {
-            if ((start.getTag()+1) > Datum.getMaxTage(start.getMonat(), start.getJahr()) && start.getMonat()==12){
-                start = new Datum(1,1, start.getJahr()+1);
-            } else if ((start.getTag()+1) > Datum.getMaxTage(start.getMonat(), start.getJahr())){
-                start = new Datum(1, start.getMonat()+1, start.getJahr());
-            } else {
-                start = new Datum(start.getTag()+1, start.getMonat(), start.getJahr());
-            }
-            alleZeitpunkte.add(start);
-        } while (start.getDateComp()!=ende.getDateComp());
-
+        if (start.getDateComp() != ende.getDateComp()) {
+            do {
+                if ((start.getTag() + 1) > Datum.getMaxTage(start.getMonat(), start.getJahr()) && start.getMonat() == 12) {
+                    start = new Datum(1, 1, start.getJahr() + 1);
+                } else if ((start.getTag() + 1) > Datum.getMaxTage(start.getMonat(), start.getJahr())) {
+                    start = new Datum(1, start.getMonat() + 1, start.getJahr());
+                } else {
+                    start = new Datum(start.getTag() + 1, start.getMonat(), start.getJahr());
+                }
+                alleZeitpunkte.add(start);
+            } while (start.getDateComp() != ende.getDateComp());
+        }
         return alleZeitpunkte;
     }
 

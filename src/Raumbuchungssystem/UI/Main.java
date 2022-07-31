@@ -43,7 +43,7 @@ public class Main {
     try {
      tag = Integer.parseInt(in.next());
      if (tag > 31 || tag < 1) {
-      System.out.print("Bitte einen richtigen Monat eiengeben\n");
+      System.out.print("Bitte einen richtigen Tag eingeben\n");
      } else {
       success = true;
      }
@@ -60,7 +60,7 @@ public class Main {
     try {
      monat = Integer.parseInt(in.next());
      if (monat > 12 || monat < 1) {
-      System.out.print("Bitte einen richtigen Monat eiengeben\n");
+      System.out.print("Bitte einen richtigen Monat eingeben\n");
      } else {
       success = true;
      }
@@ -84,7 +84,7 @@ public class Main {
      }
 
     } catch (NumberFormatException a) {
-     System.out.print("Bitte einen richtiges Jahr eingeben\n");
+     System.out.print("Bitte ein richtiges Jahr eingeben\n");
     }
    }
 
