@@ -2,12 +2,15 @@ package Raumbuchungssystem.UI;
 
 import Raumbuchungssystem.Datenbanken.Data_Room;
 import Raumbuchungssystem.Datenbanken.Data_User;
+import Raumbuchungssystem.Logik.Administrator;
 import Raumbuchungssystem.Logik.Datum;
 import Raumbuchungssystem.Logik.Room;
 import Raumbuchungssystem.Logik.User;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static Raumbuchungssystem.Datenbanken.Data_Room.bookRoom;
@@ -109,11 +112,11 @@ public class Main {
    * */
 
   //Erstellen von 5 Räumen
-  for (int i = 0; i < 5; i++) {
+  /*for (int i = 0; i < 5; i++) {
    Room room = new Room("h" + i, i);
    Data_Room.write(room);
 
-  }
+  }*/
 
   //Bennis Testfälle
 /*
@@ -180,8 +183,63 @@ public class Main {
   //Eingabesimulation zum Buchen eines Raumes von Ceyhun
   Scanner in = new Scanner(System.in);
 
+  Administrator adPasswort = new Administrator();
+  String adminPasswort = adPasswort.getAdminPasswort();
+
   System.out.println("Vornamen eingeben");
   String name = in.next();
+
+  // ------- Eingabemöglichkeit eines Admins von Pascal -------
+  if(Objects.equals(name, "Admin")){
+   System.out.println("Passwort eingeben");
+   String passwort = in.next();
+   if(Objects.equals(passwort, adminPasswort)){
+    System.out.println("\nPasswort richtig eingegeben!\n");
+    boolean weiter = true;
+
+    while(weiter) {
+    System.out.println("Was möchten Sie machen? (Geben Sie die Zahl ein!)");
+    System.out.println("1: Raum erstellen.");
+    System.out.println("2: Raum löschen.");
+    System.out.println("3: Raum sperren.");
+    System.out.println("4: Raum entsperren.");
+    System.out.println("5: Anwendung beenden.");
+
+    int auswahl = in.nextInt();
+
+     switch (auswahl) {
+      // Raum erstellen
+      case 1:
+       Administrator.erstelleRaumAdmin();
+       break;
+
+      // Raum löschen
+      case 2:
+       Administrator.loescheRaumAdmin();
+       break;
+
+      //Raum sperren
+      case 3:
+       Administrator.sperreRaumAdmin();
+       break;
+
+      //Raum entsperren
+      case 4:
+       Administrator.entsperreRaumAdmin();
+       break;
+
+      //Anwendung beenden (Schleife abbrechen)
+      case 5:
+       weiter = false;
+       System.out.println("Anwendung wurde beendet.\n");
+       break;
+     }
+    }
+   }else{
+    System.out.println("Falsches Passwort");
+   }
+   //-------------------------------------------------------
+  } else {
   System.out.println("Nachnamen eingeben");
   String nachname = in.next();
 
@@ -214,11 +272,12 @@ public class Main {
       break;
      }
     }
-    if (!success){
+    if (!success) {
      System.out.print("Bitte geben sie den richtigen Raumnamen ein!\n");
     }
    }
    bookRoom(nachname, startx, endex, raumm);
+  }
   }
  }
 }

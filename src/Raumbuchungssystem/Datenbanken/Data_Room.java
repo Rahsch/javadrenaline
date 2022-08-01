@@ -16,9 +16,9 @@ public class Data_Room{
      * Methode write nutzt nur Room
      * Methode read nutzt nur Room
      */
-    private static final String pfad = "C:\\Users\\Ceyhun\\IdeaProjects\\javadrenaline\\Data\\Rooms";
-    private static final String pfadB = "C:\\Users\\Ceyhun\\IdeaProjects\\javadrenaline\\Data\\Reservation";
-    private static final String pfadU = "C:\\Users\\Ceyhun\\IdeaProjects\\javadrenaline\\Data\\User";
+    private static final String pfad = "C:\\Users\\Pasca\\IdeaProjects\\javadrenaline\\Data\\Rooms";
+    private static final String pfadB = "C:\\Users\\Pasca\\IdeaProjects\\javadrenaline\\Data\\Reservation";
+    private static final String pfadU = "C:\\Users\\Pasca\\IdeaProjects\\javadrenaline\\Data\\User";
 
 
     /**
@@ -80,6 +80,8 @@ public class Data_Room{
      * @param start
      * @param ende
      * @param raumname
+     *
+     * Wenn der Raumname "_gesperrt" enthält, dann kann keine Buchung erstellt werden
      */
     public static void bookRoom(String nachname, Datum start, Datum ende, String raumname)
     {
@@ -144,6 +146,11 @@ public class Data_Room{
                         check = false;
                     }
                  }
+
+                //Wenn der Raumname "_gesperrt" enthält, dann kann keine Buchung erstellt werden
+                if(raumname.contains("_gesperrt")){
+                    check = false;
+                }
 
                 if(check == false)
                  {
@@ -296,8 +303,7 @@ public class Data_Room{
     /**
      * noch nicht vollständig
      */
-    public static void getRoomsAvailable()
-    {
+    public static void getRoomsAvailable() {
         //Zählt alle Objekte in der Liste
         File dir = new File(pfad);
         File[] arr = dir.listFiles(new FilenameFilter(){
@@ -332,5 +338,75 @@ public class Data_Room{
                 e.printStackTrace();
             }
     }
+    public static void loescheRaum(String raumName){
+
+        File f = new File(pfad+"\\"+raumName+".txt");
+
+        if(f.delete()){
+            System.out.println(raumName + ".txt" + " wurde gelöscht");
+        } else {
+            System.out.println("löschen fehlgeschlagen");
+        }
+    }
+    public static void sperreRaum(String raumName){
+        File fOld = new File(pfad + "\\" + raumName + ".txt");
+        File fNew = new File(pfad + "\\" + raumName + "_gesperrt.txt");
+
+        boolean test = fOld.renameTo(fNew);
+
+        if(test == true){
+            System.out.println("Der Raum wurde erfolgreich gesperrt.");
+        } else {
+            System.out.println("Es ist ein Fehler beim Sperren des Raumes aufgetreten.");
+        }
+    }
+    public static void entsperreRaum(String raumName){
+        File fOld = new File(pfad + "\\" + raumName + "_gesperrt.txt");
+
+        File fNew = new File(pfad + "\\" + raumName + ".txt");
+
+        boolean test = fOld.renameTo(fNew);
+
+        if(test == true){
+            System.out.println("Der Raum wurde erfolgreich entsperrt.");
+        } else {
+            System.out.println("Es ist ein Fehler beim Entsperren des Raumes aufgetreten.");
+        }
+    }
+
+    public static void getRoomsGesperrt()
+    {
+        try {
+            String gesperrterRaum = "";
+            File folder = new File(pfad);
+            ArrayList<Room> roomlist = new ArrayList<Room>();
+            for (File file : folder.listFiles()) {
+                if(file.getName().contains("_gesperrt")) {
+                    gesperrterRaum = file.getName();
+
+                    FileInputStream fiRes = new FileInputStream(new File(pfad + "\\" + gesperrterRaum));
+
+                    ObjectInputStream oiRes = new ObjectInputStream(fiRes);
+
+                    //Search the User
+                    roomlist.add((Room) oiRes.readObject());
+                    oiRes.close();
+                    fiRes.close();
+
+
+                    System.out.println(roomlist.get(roomlist.size() - 1).getName());
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 }
+
+
